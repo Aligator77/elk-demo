@@ -53,9 +53,9 @@ ensure_dir() {
   dir="$1"
   if [ ! -d "$dir" ]; then
     mkdir -p "$dir"
-    printf '+ %s created.\n' "$dir"
+    printf '+ %s/ created.\n' "$dir"
   else
-    printf '%s already exists.\n' "$dir"
+    printf '%s/ already exists.\n' "$dir"
   fi
 }
 
@@ -65,26 +65,40 @@ install_package () {
   file="$3"
   cs_algo="$4"
   checksum="$5"
-  base_dir="$6"
   
-  ensure_dir "$base_dir"
-  
-  if [ ! -d "$base_dir/$name" ]; then
+  if [ ! -d "./$name" ]; then
     download_file "$url" "$file" "$cs_algo" "$checksum"
     if [ $? -eq 0 ]; then
-      printf '+ Installing %s in %s/%s.\n' "$name" "$base_dir" "$name"
-      tar -xf $file -C $base_dir
+      printf '+ Installing %s in ./%s/.\n' "$name" "$name"
+      tar -xf $file -C .
     fi
   else
-    printf "%s already installed in %s/%s.\n" "$name" "$base_dir" "$name"
+    printf "%s already installed in ./%s/.\n" "$name" "$name"
   fi
 }
 
 ensure_dir "downloads"
 
+install_package "elasticsearch-1.4.0" \
+  "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.0.tar.gz" \
+  "downloads/elasticsearch-1.4.0.tar.gz" \
+  "sha1" \
+  "728913722bc94dad4cb5e759a362f09dc19ed6fe"
+
+install_package "logstash-1.4.2" \
+  "https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz" \
+  "downloads/logstash-1.4.2.tar.gz" \
+  "sha1" \
+  "d59ef579c7614c5df9bd69cfdce20ed371f728ff"
+
 install_package "kibana-3.1.2" \
   "https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz" \
   "downloads/kibana-3.1.2.tar.gz" \
   "sha1" \
-  "7769da308d9ab571ab908c0896ea9737cb868dcf" \
-  "kibana-3.1.2"
+  "a59ea4abb018a7ed22b3bc1c3bcc6944b7009dc4"
+
+install_package "kibana-4.0.0-BETA1.1" \
+  "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-BETA1.1.tar.gz" \
+  "downloads/kibana-4.0.0-BETA1.1.tar.gz" \
+  "sha1" \
+  "dab2245bdf8fc5d2f1be306c9d4a4ecdad3d7c66"
