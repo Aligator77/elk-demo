@@ -1,0 +1,42 @@
+Logstash, Elasticsearch, Kibana
+
+Todos
+
+- github project with setup script, config, etc.
+- update profile photo on github
+
+Takeaways
+
+- problem being solved
+-- extracting information from large volumes of log data
+
+- logstash, elasticsearch, kibana
+-- what each one is
+-- how they work together
+-- that they can be used independently (especially elasticsearch)
+
+- enough knowledge to setup instance for reasonably configured logs files on own
+-- prerequisites
+--- jdk, disk space, access to install stuff, access to logs
+-- steps to follow
+-- key configuration points to consider (stick to defaults, where possible)
+--- open file limits on linux
+-- where to go to find out more information
+--- pointers to documentation
+
+- enough knowledge to get useful information out of a running configuration
+-- examples of using Kibana dashboards
+-- examples of querying elasticsearch directly
+
+- things to look out for
+-- open file limits
+--- elasticsearch and logstash
+-- securing elasticsearch
+-- how logstash keeps track of indexed files
+--- based on inode, not file name
+-- Kibana 1.3.x supports facets, not aggregations
+
+- a pre-packaged configuration
+-- pre-configured elasticsearch, logstash, kibana (extract and run)
+-- example log data to index or tools to generate
+-- pre-configured kibana dashboard(s)
