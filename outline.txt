@@ -28,6 +28,9 @@ Takeaways
 -- examples of using Kibana dashboards
 -- examples of querying elasticsearch directly
 
+- examples of what we learned using these tools
+-- obfuscated data (functions, customers, IPs, URLs, etc.)
+
 - things to look out for
 -- open file limits
 --- elasticsearch and logstash
@@ -35,6 +38,14 @@ Takeaways
 -- how logstash keeps track of indexed files
 --- based on inode, not file name
 -- Kibana 1.3.x supports facets, not aggregations
+-- elasticsearch cluster monitoring/management tools
+--- kopf
+--- marvel
+-- clustering is still maturing
+--- haven't clustered personally
+-- nodes auto-discover each other by broadcasting
+--- set a cluster name
+--- disable auto-discovery, if desired
 
 - a pre-packaged configuration
 -- pre-configured elasticsearch, logstash, kibana (extract and run)
