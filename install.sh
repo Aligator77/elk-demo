@@ -99,12 +99,6 @@ install_package "kibana-3.1.2" \
   "sha1" \
   "a59ea4abb018a7ed22b3bc1c3bcc6944b7009dc4"
 
-install_package "kibana-4.0.0-BETA2" \
-  "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-BETA2.tar.gz" \
-  "downloads/kibana-4.0.0-BETA2.tar.gz" \
-  "sha1" \
-  "52ac9db2b499f5af073ddb27d78e8a534370df34"
-
 # install the kopf (https://github.com/lmenezes/elasticsearch-kopf) plugin for elasticsearch cluster administration
 kopf_installed=$(./elasticsearch-1.4.0/bin/plugin -l | grep -c kopf)
 if [ $kopf_installed -eq 0 ]; then
