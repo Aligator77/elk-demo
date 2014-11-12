@@ -11,26 +11,97 @@ Todos
 - remove heap dump on OOM in elasticsearch.in.sh
 - index ip address as ip field type
 
+Abstract
+
+Most applications start out small and simple, but successful ones rarely stay small. One server becomes ten. One application becomes six. New services get introduced to help scale. One or two logs files become hundreds. How do you effectively research issues and spot trends as complexity and scale grow? How do you make the information captive in this flood of log data accessible to a larger audience? One approach is to index the log data in a way that makes it easier to search, analyze, and display.
+
+In this session, we will cover one approach to accomplishing this using the open source tools Elasticsearch, Logstash, and Kibana. These tools process log data from various sources and formats, index large volumes of log data, and provide a UI for searching logs and building dashboards. We will discuss how these tools integrate together, some lessons learned from using this solution to research real-world issues, and how to get started with a simple setup.
+
+Outline
+
+# Introductions (me, audience, Vertafore)
+
+# Vertafore experience
+- Context
+-- # applications
+-- # servers
+-- # of log events/lines per day
+- Problems
+-- extracting information from large volumes of log data
+-- Researching functional issues
+--- Pinpointing an occurrence; Need to know customer/user, time, server, nature of problem; rarely get all of these
+--- Determining the scope, frequency, history of an issue
+--- Monitoring for future occurences
+-- Researching performance (response time) issues
+--- Need to locate specific request(s); Need to know customer/user, time, server, nature of problem; rarely get all of these
+--- Need understand how performance varies across different factors: time, customer, server, size of response, etc.
+-- Understanding performance (response time) and usage trends
+--- Need understand how performance varies across different factors: time, customer, server, size of response, etc.
+--- Need aggregate statistics/metrics to help understand volumes of data
+-- Make information available to a broad audience: developers, business analysts, operations, customer-facing staff
+-- Make monitoring visible
+- Status Quo
+-- rsync logs to a single location
+-- find, grep, awk, sed, wc, cron, etc.
+-- pretty effective for researching functional issues, locating specific request for performance issues
+-- not very accessible outside of developers and some operations staff
+-- difficult to see variation across factors or get aggregate metrics
+-- not very visible
+- The Experiment
+-- Index log events to make them easier to search and analyze
+-- Provide a UI for searching and building dashboards
+-- Initial focus on access logs
+- Implementation
+-- Elasticsearch to store and index log events
+-- Logstash to monitor, parse, and load logs into Elasticsearch
+-- Kibana as a UI to search Elasticsearch, visualize information, and build dashboards
+-- Node.js and Excel to analyze aggregate metrics
+-- ~6 months of historical logs loaded; live logs loaded with ~30 minutes delay
+- Lessons
+-- The combination of Elasticsearch and Kibana is very effective for exploring data
+-- Elasticsearch has additional capabilities not exposed through Kibana (e.g. percentile aggregates)
+--- Need some additional tools to take advantage of these
+--- Kibana 4 will improve this and is currently in beta
+-- Able to analyze aggregate metrics broken down by different factors using Elasticsearch, node.js, and excel, then drill down into problem areas with Kibana and Elasticsearch
+-- Elasticsearch can handle a healthy amount of data
+--- currently have one node with ~440 million events in a ~200GB index; 16 GB heap
+
+# Technologies
+
+- Elasticsearch
+-- scalable, clustered Lucene indexes
+-- HTTP API
+-- concepts
+--- cluster
+--- nodes
+---- data
+---- master
+--- indexes
+---- shards
+- Logstash
+-- log data pipeline
+--- accept various inputs, including custom plugins
+--- process events
+--- output to various destinations, including custom plugins
+-- watch log files -> parse lines into fields -> store in Elasticsearch index
+-- connect to elasticsearch cluster as non-data node
+- Kibana
+-- javascript application that interacts with Elasticsearch HTTP API
+-- provides search, visualization, and dashboard capabilites
+
+# Quick Start
+
+# Questions and Contact Info
+
+# References
+
+- http://www.elasticsearch.org
+- http://logstash.net/
+- https://github.com/elasticsearch/kibana
+- https://github.com/lmenezes/elasticsearch-kopf
+- https://github.com/dgrabows/elk-demo
 
 Takeaways
-
-- problem being solved
--- extracting information from large volumes of log data
-
-- logstash
--- connect to elasticsearch cluster as non-data node
-- elasticsearch
--- cluster
--- nodes
---- data
---- master
--- indexes
---- shards
-- kibana
--- what each one is
--- how they work together
--- that they can be used independently (especially elasticsearch)
--- general overview of elasticsearch topology
 
 - enough knowledge to setup instance for reasonably configured logs files on own
 -- prerequisites
@@ -63,6 +134,7 @@ Takeaways
 --- marvel
 -- clustering is still maturing
 --- haven't clustered personally
+--- http://www.elasticsearch.org/guide/en/elasticsearch/resiliency/current/index.html
 -- nodes auto-discover each other by broadcasting
 --- set a cluster name
 --- disable auto-discovery, if desired
@@ -77,7 +149,3 @@ Takeaways
 -- explanation of topology of example
 --- cluster, nodes
 
-References
-
-- https://github.com/elasticsearch/kibana
-- https://github.com/lmenezes/elasticsearch-kopf
