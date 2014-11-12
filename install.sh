@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-something_failed=false
-
 # returns 0 if download and checksum successful
 download_file() {
   url="$1"
@@ -24,7 +22,7 @@ download_file() {
   expected_checksum="$4"
   
   if [ ! -f "$target_file" ]; then
-    printf '+ Downloading %s from %s.\n' "$target_file" "$url"
+    printf 'Downloading %s from %s.\n' "$target_file" "$url"
     curl -L "$url" -o "$target_file"
   else
     printf '%s already existed. Re-using file.\n' "$target_file"
@@ -34,7 +32,6 @@ download_file() {
     if [ "$expected_checksum" == "$calculated_checksum" ]; then
       printf 'Checksum ok.\n'
     else
-      something_failed=true
       printf '! %s checksum did not match. Delete file to retry download.\n' "$checksum_algo"
       printf 'File:     %s\n' "$target_file"
       printf 'Expected: %s\n' "$expected_checksum"
@@ -42,7 +39,6 @@ download_file() {
       return 1
     fi
   else
-    something_failed=true
     printf '! Unable to download %s from %s.\n' "$target_file" "$url"
     return 1
   fi
@@ -53,7 +49,7 @@ ensure_dir() {
   dir="$1"
   if [ ! -d "$dir" ]; then
     mkdir -p "$dir"
-    printf '+ %s/ created.\n' "$dir"
+    printf '%s/ created.\n' "$dir"
   else
     printf '%s/ already exists.\n' "$dir"
   fi
@@ -69,7 +65,7 @@ install_package () {
   if [ ! -d "./$name" ]; then
     download_file "$url" "$file" "$cs_algo" "$checksum"
     if [ $? -eq 0 ]; then
-      printf '+ Installing %s in ./%s/.\n' "$name" "$name"
+      printf 'Installing %s in ./%s/.\n' "$name" "$name"
       tar -xf $file -C .
     fi
   else
@@ -78,6 +74,12 @@ install_package () {
 }
 
 ensure_dir "downloads"
+ensure_dir "var"
+ensure_dir "var/logs"
+ensure_dir "var/logs/elasticsearch"
+ensure_dir "var/logs/logstash"
+ensure_dir "var/data"
+ensure_dir "var/data/elasticsearch"
 
 install_package "elasticsearch-1.4.0" \
   "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.0.tar.gz" \
@@ -97,8 +99,17 @@ install_package "kibana-3.1.2" \
   "sha1" \
   "a59ea4abb018a7ed22b3bc1c3bcc6944b7009dc4"
 
-install_package "kibana-4.0.0-BETA1.1" \
-  "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-BETA1.1.tar.gz" \
-  "downloads/kibana-4.0.0-BETA1.1.tar.gz" \
+install_package "kibana-4.0.0-BETA2" \
+  "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-BETA2.tar.gz" \
+  "downloads/kibana-4.0.0-BETA2.tar.gz" \
   "sha1" \
-  "dab2245bdf8fc5d2f1be306c9d4a4ecdad3d7c66"
+  "52ac9db2b499f5af073ddb27d78e8a534370df34"
+
+# install the kopf (https://github.com/lmenezes/elasticsearch-kopf) plugin for elasticsearch cluster administration
+kopf_installed=$(./elasticsearch-1.4.0/bin/plugin -l | grep -c kopf)
+if [ $kopf_installed -eq 0 ]; then
+  printf 'Installing kopf Elasticsearch plugin.\n'
+  ./elasticsearch-1.4.0/bin/plugin --install lmenezes/elasticsearch-kopf/1.3.8
+else
+  printf 'kopf Elasticsearch plugin already installed.\n'
+fi
