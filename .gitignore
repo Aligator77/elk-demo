@@ -1,12 +1,18 @@
-# IntelliJ project files #
+# IntelliJ project files
 *.iml
 .idea/
 
-# Maven build output #
+# Maven build output
 target/
 
-# Software installation directories #
+# Software installation directories
 /downloads/
 /logstash-*/
 /elasticsearch-*/
 /kibana-*/
+
+# Data directories
+/var/
+
+# Logstash file database
+.sincedb

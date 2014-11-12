@@ -2,18 +2,35 @@ Logstash, Elasticsearch, Kibana
 
 Todos
 
+- make install script determine current path and setup absolute file path in logstash.conf
+- stop logstash script
+- start elasticsearch in daemon mode, add stop script
+- start/stop kibana scripts
+- configure default index patterna and time field for kibana
 - github project with setup script, config, etc.
-- update profile photo on github
+- remove heap dump on OOM in elasticsearch.in.sh
+- index ip address as ip field type
+
 
 Takeaways
 
 - problem being solved
 -- extracting information from large volumes of log data
 
-- logstash, elasticsearch, kibana
+- logstash
+-- connect to elasticsearch cluster as non-data node
+- elasticsearch
+-- cluster
+-- nodes
+--- data
+--- master
+-- indexes
+--- shards
+- kibana
 -- what each one is
 -- how they work together
 -- that they can be used independently (especially elasticsearch)
+-- general overview of elasticsearch topology
 
 - enough knowledge to setup instance for reasonably configured logs files on own
 -- prerequisites
@@ -32,6 +49,7 @@ Takeaways
 
 - examples of what we learned using these tools
 -- obfuscated data (functions, customers, IPs, URLs, etc.)
+-- stats on the single node cluster we have (heap, disk, # indexes, # shards, # docs)
 
 - things to look out for
 -- open file limits
@@ -48,8 +66,18 @@ Takeaways
 -- nodes auto-discover each other by broadcasting
 --- set a cluster name
 --- disable auto-discovery, if desired
+-- connect logstash to elasticsearch via http api for large version differences
+-- connecting kibana 4 to elasticsearch 1.4 doesn't work when logstash is a node in the cluster
+--- https://github.com/elasticsearch/kibana/issues/1636
 
 - a pre-packaged configuration
 -- pre-configured elasticsearch, logstash, kibana (extract and run)
 -- example log data to index or tools to generate
 -- pre-configured kibana dashboard(s)
+-- explanation of topology of example
+--- cluster, nodes
+
+References
+
+- https://github.com/elasticsearch/kibana
+- https://github.com/lmenezes/elasticsearch-kopf

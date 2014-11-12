@@ -78,8 +78,10 @@ ensure_dir "var"
 ensure_dir "var/logs"
 ensure_dir "var/logs/elasticsearch"
 ensure_dir "var/logs/logstash"
+ensure_dir "var/logs/input"
 ensure_dir "var/data"
 ensure_dir "var/data/elasticsearch"
+ensure_dir "var/data/logstash"
 
 install_package "elasticsearch-1.4.0" \
   "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.0.tar.gz" \
