@@ -16,3 +16,6 @@ target/
 
 # Logstash file database
 .sincedb
+
+# node.js modules
+/node_modules/

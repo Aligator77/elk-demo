@@ -108,6 +108,7 @@ Takeaways
 --- jdk, disk space, access to install stuff, access to logs
 --- os x, linux
 --- curl, openssl
+--- node.js
 -- steps to follow
 -- key configuration points to consider (stick to defaults, where possible)
 --- open file limits on linux

@@ -21,8 +21,12 @@ es_config="${es_config} -Des.index.number_of_shards=1 -Des.index.number_of_repli
 # Move the elasticsearch data and log directories outside of the elasticsearch install to make upgrading easier.
 es_config="${es_config} -Des.path.data=var/data/elasticsearch -Des.path.logs=var/logs/elasticsearch"
 
+# Enable cross-origin requests from Kibana
+es_config="${es_config} -Des.http.cors.enabled=true -Des.http.cors.allowed-origin=http://localhost:9080"
+
 # Have elasticsearch print out the maximum number of open file descriptors it is allowed when starting up.
 es_config="${es_config} -Des.max-open-files" 
 
 ${es_home}/bin/elasticsearch ${es_config} -p ${es_home}/es.pid -d
+
 echo "Elasticsearch started."

@@ -78,6 +78,7 @@ ensure_dir "var"
 ensure_dir "var/logs"
 ensure_dir "var/logs/elasticsearch"
 ensure_dir "var/logs/logstash"
+ensure_dir "var/logs/kibana"
 ensure_dir "var/logs/input"
 ensure_dir "var/data"
 ensure_dir "var/data/elasticsearch"
@@ -109,3 +110,13 @@ if [ $kopf_installed -eq 0 ]; then
 else
   printf 'kopf Elasticsearch plugin already installed.\n'
 fi
+
+# install node.js packages used to run the web server that hosts Kibana files
+for package in connect serve-static; do
+  installed=$(npm list | grep -c " ${package}@")
+  if [ $installed -eq 0 ]; then
+    npm install $package
+  else
+    printf 'npm %s package already installed.\n' "$package"
+  fi
+done
