@@ -19,3 +19,6 @@ target/
 
 # node.js modules
 /node_modules/
+
+# OS X metadata
+.DS_Store

@@ -2,7 +2,12 @@ Logstash, Elasticsearch, Kibana
 
 Todos
 
+- change introduction
+- compress/simplify experience report
+- add details of what happens to a log entry in logstash
+- data generation and/or sample data for example
 - make install script determine current path and setup absolute file path in logstash.conf
+- prep widescreen version of presentation
 - stop logstash script
 - start elasticsearch in daemon mode, add stop script
 - start/stop kibana scripts
@@ -10,6 +15,10 @@ Todos
 - github project with setup script, config, etc.
 - remove heap dump on OOM in elasticsearch.in.sh
 - index ip address as ip field type
+
+"Skyline at Night" (https://www.flickr.com/photos/knightfoundation/12119756375) by Knight Foundation (https://www.flickr.com/photos/knightfoundation/), used under CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0/) / Converted to black and white
+
+"Skyline at Night" by Knight Foundation, used under CC BY-SA 2.0 / Converted to black and white
 
 Abstract
 
