@@ -27,6 +27,6 @@ es_config="${es_config} -Des.http.cors.enabled=true -Des.http.cors.allowed-origi
 # Have elasticsearch print out the maximum number of open file descriptors it is allowed when starting up.
 es_config="${es_config} -Des.max-open-files" 
 
-${es_home}/bin/elasticsearch ${es_config} -p ${es_home}/es.pid -d
+${es_home}/bin/elasticsearch ${es_config} -Des.node.name=node1 -p ${es_home}/es.pid -d
 
 echo "Elasticsearch started."
