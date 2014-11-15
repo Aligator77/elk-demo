@@ -120,3 +120,6 @@ for package in connect serve-static; do
     printf 'npm %s package already installed.\n' "$package"
   fi
 done
+
+# Generate log data to index
+./generate-logs.sh

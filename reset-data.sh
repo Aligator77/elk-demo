@@ -22,3 +22,5 @@ for dir in var/data/elasticsearch var/data/logstash var/logs/elasticsearch var/l
   rm -rf ${dir}
   mkdir -p ${dir}
 done
+
+./generate-logs.sh
