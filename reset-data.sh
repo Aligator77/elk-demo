@@ -18,7 +18,8 @@ if [ -n "${pid}" ]; then
   exit 1
 fi
 
-for dir in var/data/elasticsearch var/data/logstash var/logs/elasticsearch var/logs/logstash var/logs/kibana; do
+for dir in var/data/elasticsearch var/data/logstash var/logs/elasticsearch var/logs/logstash var/logs/kibana var/logs/input; do
+  echo "Removing data from ${dir}"
   rm -rf ${dir}
   mkdir -p ${dir}
 done
