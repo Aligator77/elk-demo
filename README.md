@@ -15,14 +15,19 @@ Make getting from nothing to a running configuration of [Elasticsearch](http://w
 ## Installation
 
 * Clone project and get everything running
+
     $ git clone git@github.com:dgrabows/elk-demo.git
     $ ./install.sh
     $ ./start-all.sh
+
 * Open the admin UI [http://localhost:9200/_plugin/kopf](http://localhost:9200/_plugin/kopf)
 * Open Kibana [http://localhost:9080/index.html#/dashboard/file/logstash.json](http://localhost:9080/index.html#/dashboard/file/logstash.json)
 * Shut things down when done
+
     $ ./stop-all.sh
+
 * Clean out the data and regenerate a new set (with everything stopped)
+
     $ ./reset-data.sh
 
 ## License
